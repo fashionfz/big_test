@@ -1,5 +1,6 @@
 package com.yaxin.big.test.move
 
+//模式匹配
 object Match {
   def main(args : Array[String]) : Unit = {
     
@@ -53,5 +54,27 @@ object Match {
       }
     }
     match_tuple((33,0))
+    
+    
+    //嵌套case class
+    
+    abstract class Item;
+    case class Booke(description : String, price : Double) extends Item;
+    case class More(description : String, price : Double, items : Item*) extends Item;
+    
+    def match_inner(input : Item) : Unit = {
+      input match{
+        case More(_, _, bk @ Booke(_, _), thor @ _*) => println(bk.price)
+        case More(_, _, Booke(dsec, _), _*) => println(dsec);
+        case _ => println("other")
+      }
+    }
+    
+    
+    var map = Map("xxx"->2,"uu"->3)
+    map.get("xxx") match{
+      case Some(score) => println(score)
+      case None => println("no")
+    }
   }
 }
